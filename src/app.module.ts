@@ -4,6 +4,7 @@ import { AuthModule } from './auth/auth.module.js';
 import { BranchesModule } from './branches/branches.module.js';
 import { DbModule } from './db/db.module.js';
 import { StatsModule } from './stats/stats.module.js';
+import { ReviewsModule } from './reviews/reviews.module.js';
 
 @Module({
 	imports: [
@@ -14,6 +15,7 @@ import { StatsModule } from './stats/stats.module.js';
 		AuthModule,
 		BranchesModule,
 		StatsModule,
+		ReviewsModule,
 	],
 })
 export class AppModule {}

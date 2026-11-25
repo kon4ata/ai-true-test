@@ -5,7 +5,7 @@ import { CurrentUser } from './decorators/current-user.decorator.js';
 import { Public } from './decorators/public.decorator.js';
 import { LoginDto } from './dto/login.dto.js';
 
-@Controller('auth')
+@Controller('v1/auth')
 export class AuthController {
 	constructor(private readonly auth: AuthService) {}
 

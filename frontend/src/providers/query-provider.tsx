@@ -1,6 +1,6 @@
 "use client";
 
-import { createQueryClient } from "@/lib/queryClient.ts";
+import { createQueryClient } from "@/shared/queryClient.ts";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactNode, useState } from "react";
 

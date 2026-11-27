@@ -1,4 +1,4 @@
-import { backendFetch } from "@/lib/backend.ts";
+import { backendFetch } from "@/shared/backend.ts";
 
 export async function PATCH(
 	request: Request,

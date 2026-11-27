@@ -1,4 +1,4 @@
-import { backendFetch } from "@/lib/backend.ts";
+import { backendFetch } from "@/shared/backend.ts";
 
 export async function GET(request: Request) {
 	const { search } = new URL(request.url);

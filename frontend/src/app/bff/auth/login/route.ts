@@ -1,4 +1,4 @@
-import { backendFetch, COOKIE } from "@/lib/backend.ts";
+import { backendFetch, COOKIE } from "@/shared/backend.ts";
 import { cookies } from "next/headers";
 
 export async function POST(request: Request) {

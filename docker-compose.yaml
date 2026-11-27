@@ -1,0 +1,65 @@
+services:
+    postgres-db:
+        container_name: ai-true-db
+        image: postgres:18.3-alpine3.23
+        environment:
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            POSTGRES_DB: ${POSTGRES_DB}
+            PGDATA: /data/postgres
+        ports:
+          - '127.0.0.1:5432:5432'
+        volumes:
+            - db:/data/postgres
+        networks:
+            - ai-true-test
+        restart: unless-stopped
+        healthcheck:
+            test:
+                [
+                    'CMD-SHELL',
+                    'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}',
+                ]
+            interval: 3s
+            timeout: 3s
+            retries: 5
+            start_period: 3s
+
+    app-back:
+      container_name: ai-true-back
+      build:
+        context: ./backend
+        dockerfile: deploy/Dockerfile
+      environment:
+        DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres-db:5432/${POSTGRES_DB}
+        JWT_SECRET: ${JWT_SECRET}
+        JWT_EXPIRES_IN_SECONDS: ${JWT_EXPIRES_IN_SECONDS}
+      ports:
+        - "3000:3000"
+      networks:
+        - ai-true-test
+      restart: unless-stopped
+      depends_on:
+        postgres-db:
+          condition: service_healthy
+
+    app-front:
+      build:
+        context: ./frontend
+        dockerfile: deploy/Dockerfile
+      environment:
+        BACKEND_URL: http://app-back:3000
+        COOKIE_SECURE: "false"
+      ports:
+        - "3001:3000"
+      networks:
+        - ai-true-test
+      depends_on:
+        - app-back
+
+networks:
+    ai-true-test:
+        driver: bridge
+
+volumes:
+    db:

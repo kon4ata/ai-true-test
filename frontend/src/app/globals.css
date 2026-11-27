@@ -24,10 +24,3 @@ body {
 	color: var(--foreground);
 	font-family: Arial, Helvetica, sans-serif;
 }
-/* 
-@layer components {
-	.field {
-		@apply border rounded px-3 py-2 text-black bg-white;
-		color-scheme: light;
-	}
-} */
